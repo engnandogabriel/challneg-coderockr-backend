@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface OwnerRepository {
     void save(Owner owner);
     Optional<Owner> getByEmail(String email);
+    Optional<Owner> getById(String id);
 }
