@@ -25,7 +25,15 @@ public class OwnerRepositoryDataBase implements OwnerRepository {
     @Override
     public Optional<Owner> getByEmail(String email) {
         OwnerModel ownerModel = this.ownerJPA.findByEmail(email).orElse(null);
-        if(ownerModel==null) return Optional.empty();
+        if (ownerModel == null) return Optional.empty();
+        Owner owner = Owner.restore(ownerModel.getOwner_id(), ownerModel.getName(), ownerModel.getEmail());
+        return Optional.of(owner);
+    }
+
+    @Override
+    public Optional<Owner> getById(String id) {
+        OwnerModel ownerModel = this.ownerJPA.findByEmail(id).orElse(null);
+        if (ownerModel == null) return Optional.empty();
         Owner owner = Owner.restore(ownerModel.getOwner_id(), ownerModel.getName(), ownerModel.getEmail());
         return Optional.of(owner);
     }
