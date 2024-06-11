@@ -1,0 +1,10 @@
+owners:
+ owner_id - uuid PK
+ name - string
+
+investments:
+    investment_id - uuid PK
+    id_owner - uuid,
+    create_date - date
+    amount - double
+    status - string
