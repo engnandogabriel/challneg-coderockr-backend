@@ -2,6 +2,7 @@ package com.project.Coderock.controller;
 
 import com.project.Coderock.application.usecases.CreateOwner;
 import com.project.Coderock.domain.DTO.CreateOwnerDTO;
+import com.project.Coderock.domain.HandlersService.HandlerDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,8 @@ public class OwnerController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> save(@RequestBody  CreateOwnerDTO ownerDTO){
-        this.createOwner.execute(ownerDTO);
-        return ResponseEntity.ok("Created");
+    public ResponseEntity<HandlerDTO> save(@RequestBody  CreateOwnerDTO ownerDTO){
+        HandlerDTO output = this.createOwner.execute(ownerDTO);
+        return new ResponseEntity<>(output, output.status());
     }
 }
