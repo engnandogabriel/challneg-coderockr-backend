@@ -1,5 +1,7 @@
 package com.project.Coderock.domain.value_objects;
 
+import com.project.Coderock.domain.Exceptions.InvalidOperations;
+
 public class Status {
     private String status;
 
@@ -8,12 +10,12 @@ public class Status {
     }
 
     public void setInInvestmen() throws Exception {
-        if (this.status.equals("withdrawn")) throw new Exception("Invalid action: status is withdrawn");
+        if (this.status.equals("withdrawn")) throw new InvalidOperations("Invalid action: status is withdrawn");
         this.status = "in_investment";
     }
 
     public void setWithdrawn() throws Exception {
-        if (this.status.equals("withdrawn")) throw new Exception("Invalid action: investment already withdrawn");
+        if (this.status.equals("withdrawn")) throw new InvalidOperations("Invalid action: investment already withdrawn");
         this.status = "withdrawn";
     }
 

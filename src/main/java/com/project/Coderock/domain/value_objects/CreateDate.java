@@ -1,6 +1,8 @@
 package com.project.Coderock.domain.value_objects;
 
 
+import com.project.Coderock.domain.Exceptions.InvalidParamError;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +20,7 @@ public class CreateDate {
 
     public static CreateDate validateDate(String create_date) throws Exception {
         if (!create_date.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            throw new Exception("Date Format invalid. Use DD/MM/AAAA");
+            throw new InvalidParamError("Date Format invalid. Use DD/MM/AAAA");
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -28,11 +30,11 @@ public class CreateDate {
         try {
             inputDate = sdf.parse(create_date);
         } catch (ParseException e) {
-            throw new Exception("Invalid date");
+            throw new InvalidParamError("Invalid date");
         }
 
         if (inputDate.after(new Date())) {
-            throw new Exception("Can not be a future date");
+            throw new InvalidParamError("Can not be a future date");
         }
 
         return new CreateDate(create_date);

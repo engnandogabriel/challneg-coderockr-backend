@@ -1,5 +1,6 @@
 package com.project.Coderock.domain.entites;
 
+import com.project.Coderock.domain.Exceptions.InvalidParamError;
 import com.project.Coderock.domain.value_objects.CreateDate;
 import com.project.Coderock.domain.value_objects.Status;
 
@@ -26,7 +27,7 @@ public class Investment {
     public static Investment create(String owner_id, String create_date, Double amount) throws Exception {
         UUID id = UUID.randomUUID();
         String status = "in_investment";
-        if(amount.doubleValue() <= 0) throw new Exception("Invalid Amount");
+        if(amount.doubleValue() <= 0) throw new InvalidParamError("Invalid Amount");
         return new Investment(id.toString(), owner_id, CreateDate.validateDate(create_date), amount, Status.create());
     }
 
