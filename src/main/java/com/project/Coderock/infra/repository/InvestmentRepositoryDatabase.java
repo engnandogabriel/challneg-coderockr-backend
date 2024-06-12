@@ -16,7 +16,7 @@ public class InvestmentRepositoryDatabase implements InvestmentRepository {
 
     @Override
     public void save(Investment investment) {
-        InvestmentModel investmentModel = new InvestmentModel(investment.getInvestment_id(), investment.getOwner_id(), investment.getCreate_date(), investment.getAmount(), investment.getStatus());
+        InvestmentModel investmentModel = new InvestmentModel(investment.getInvestment_id(), investment.getOwner_id(), investment.getCreate_date(), investment.getInvestment(), investment.getAmount(), investment.getStatus());
         this.investmentJPA.save(investmentModel);
     }
 }
