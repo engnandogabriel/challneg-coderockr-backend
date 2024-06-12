@@ -15,16 +15,19 @@ public class InvestmentModel {
     private String owner_id;
     @Column(name = "create_date")
     private String create_date;
+    @Column(name="investment")
+    private Double investment;
     @Column(name = "amount")
     private Double amount;
     @Column(name = "status")
     private String status;
 
 
-    public InvestmentModel(String investment_id, String owner_id, String create_date, Double amount, String status) {
+    public InvestmentModel(String investment_id, String owner_id, String create_date, Double investment, Double amount, String status) {
         this.investment_id = investment_id;
         this.owner_id = owner_id;
         this.create_date = create_date;
+        this.investment = investment;
         this.amount = amount;
         this.status = status;
     }
@@ -54,6 +57,14 @@ public class InvestmentModel {
 
     public void setCreate_date(String create_date) {
         this.create_date = create_date;
+    }
+
+    public Double getInvestment() {
+        return investment;
+    }
+
+    public void setInvestment(Double investment) {
+        this.investment = investment;
     }
 
     public Double getAmount() {
