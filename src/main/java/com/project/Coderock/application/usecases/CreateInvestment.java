@@ -28,7 +28,7 @@ public class CreateInvestment {
         try {
             Optional<Owner> owner = this.ownerRepository.getById(investmentDTO.owner_id());
             if (owner.isEmpty()) return new Handlers<>().notFound(new NotFoundError("Owner not found"));
-            Investment investment = Investment.create(investmentDTO.owner_id(), investmentDTO.create_date(), investmentDTO.amount());
+            Investment investment = Investment.create(investmentDTO.owner_id(), investmentDTO.create_date(), investmentDTO.investment());
             this.investmentRepository.save(investment);
             return new Handlers<>().success(investment);
         } catch (RuntimeException e) {
