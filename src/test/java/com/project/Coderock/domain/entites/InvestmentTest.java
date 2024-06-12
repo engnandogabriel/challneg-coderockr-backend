@@ -14,20 +14,21 @@ class InvestmentTest {
     void create() throws Exception{
         Investment investment = Investment.create("owner_id", "01/06/2024", 1000D);
         Assertions.assertNotNull(investment.getInvestment_id());
-        Assertions.assertEquals(investment.getStatus(), "in_investing");
-        Assertions.assertEquals(investment.getAmount(), 1000);
+        Assertions.assertEquals(investment.getStatus(), "in_investment");
+        Assertions.assertEquals(investment.getInvestment(), 1000);
+        Assertions.assertEquals(investment.getAmount(), 0.0);
         System.out.println(investment.getInvestment_id());
     }
     @Test
     @DisplayName("Should be throw a new Exception if a amount is invalid")
     void amountInvalid() throws Exception {
         Exception exception = Assertions.assertThrows(Exception.class, () -> Investment.create("owner_id", "01/06/2024", 0D));
-        Assertions.assertEquals(exception.getMessage(), "Invalid Amount");
+        Assertions.assertEquals(exception.getMessage(), "InvalidParamError: Invalid Amount");
     }
     @Test
     @DisplayName("Must change status to withdrawn")
     void changeStatus() throws Exception {
-        Investment investment = Investment.restore("c05d55b5-8d7c-4881-b67f-03eff6102def","owner_id", "01/06/2024", 100D, "in_investment");
+        Investment investment = Investment.restore("c05d55b5-8d7c-4881-b67f-03eff6102def","owner_id", "01/06/2024", 100D, 0.0, "in_investment");
         investment.setWithdrawn();
         Assertions.assertEquals("withdrawn", investment.getStatus());
     }
