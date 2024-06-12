@@ -32,7 +32,7 @@ public class OwnerRepositoryDataBase implements OwnerRepository {
 
     @Override
     public Optional<Owner> getById(String id) {
-        OwnerModel ownerModel = this.ownerJPA.findByEmail(id).orElse(null);
+        OwnerModel ownerModel = this.ownerJPA.findById(id).orElse(null);
         if (ownerModel == null) return Optional.empty();
         Owner owner = Owner.restore(ownerModel.getOwner_id(), ownerModel.getName(), ownerModel.getEmail());
         return Optional.of(owner);
