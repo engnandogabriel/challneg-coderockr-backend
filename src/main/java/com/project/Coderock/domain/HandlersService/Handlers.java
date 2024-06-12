@@ -14,4 +14,8 @@ public class Handlers<T> {
     public HandlerDTO success(T obj) {
         return new HandlerDTO<T>(HttpStatus.OK, "Success", obj);
     }
+
+    public HandlerDTO notFound(Exception e) {
+        return new HandlerDTO<String>(HttpStatus.NOT_FOUND, "Not Found", e.getMessage());
+    }
 }
