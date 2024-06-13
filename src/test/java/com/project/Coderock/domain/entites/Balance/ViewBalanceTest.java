@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 class ViewBalanceTest {
     @Test
     @DisplayName("Should be returned a correct value")
-    void data(){
+    void data() throws Exception {
         Double view = new ViewBalance().setBalance(1000D, "10/01/2024", "");
         Assertions.assertEquals(1026.27, view);
     }
