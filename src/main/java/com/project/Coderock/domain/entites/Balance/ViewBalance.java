@@ -1,5 +1,4 @@
 package com.project.Coderock.domain.entites.Balance;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -19,8 +18,8 @@ public class ViewBalance extends Balance {
     public int getMonths(String create_date, String view_date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate creationDate = LocalDate.parse(create_date, formatter);
-        LocalDate viewDate = LocalDate.now();
-        Period period = Period.between(creationDate, viewDate);
-        return period.getMonths();
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(creationDate, currentDate);
+        return period.getYears() * 12 + period.getMonths();
     }
 }
