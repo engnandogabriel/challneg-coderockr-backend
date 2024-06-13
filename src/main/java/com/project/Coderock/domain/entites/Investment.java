@@ -1,9 +1,11 @@
 package com.project.Coderock.domain.entites;
 
 import com.project.Coderock.domain.Exceptions.InvalidParamError;
+import com.project.Coderock.domain.entites.Balance.BalanceFactory;
 import com.project.Coderock.domain.value_objects.CreateDate;
 import com.project.Coderock.domain.value_objects.Status;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Investment {
@@ -29,7 +31,7 @@ public class Investment {
     public static Investment create(String owner_id, String create_date, Double investment) throws Exception {
         UUID id = UUID.randomUUID();
         String status = "in_investment";
-        if(investment.doubleValue() <= 0) throw new InvalidParamError("Invalid Amount");
+        if (investment.doubleValue() <= 0) throw new InvalidParamError("Invalid Amount");
         return new Investment(id.toString(), owner_id, CreateDate.validateDate(create_date), investment, 0.0, Status.create());
     }
 
@@ -69,10 +71,13 @@ public class Investment {
     public String getStatus() {
         return status.getStatus();
     }
-    public void setWithdrawn() throws Exception{
+
+    public void setWithdrawn() throws Exception {
         this.status.setWithdrawn();
     }
-    public void getBalance(){
 
+    public void viewBalanceInvestment() throws Exception {
+        this.amount = BalanceFactory.balance("view_balance", this.investment, this.getCreate_date(), "");
     }
+
 }
