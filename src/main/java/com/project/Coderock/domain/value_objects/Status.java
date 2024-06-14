@@ -10,7 +10,7 @@ public class Status {
     }
 
     public void setInInvestmen() throws Exception {
-        if (this.status.equals("withdrawn")) throw new InvalidOperations("Invalid action: status is withdrawn");
+        if (this.status.equals("withdrawn")) throw new InvalidOperations("Status is withdrawn");
         this.status = "in_investment";
     }
 
