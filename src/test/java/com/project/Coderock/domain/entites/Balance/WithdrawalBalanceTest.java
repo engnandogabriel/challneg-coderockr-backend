@@ -4,12 +4,6 @@ import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
-
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class WithdrawalBalanceTest {
     @Test
     @DisplayName("Should be returned a correct value in range of 12 months")
