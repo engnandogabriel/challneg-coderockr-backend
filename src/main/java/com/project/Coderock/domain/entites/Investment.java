@@ -5,7 +5,8 @@ import com.project.Coderock.domain.entites.Balance.BalanceFactory;
 import com.project.Coderock.domain.value_objects.CreateDate;
 import com.project.Coderock.domain.value_objects.Status;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 public class Investment {
@@ -43,7 +44,6 @@ public class Investment {
         return investment_id;
     }
 
-
     public String getOwner_id() {
         return owner_id;
     }
@@ -64,10 +64,6 @@ public class Investment {
         return amount;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
     public String getStatus() {
         return status.getStatus();
     }
@@ -80,4 +76,9 @@ public class Investment {
         this.amount = BalanceFactory.balance("view_balance", this.investment, this.getCreate_date(), "");
     }
 
+    public void calculateBalance(String view_date) throws Exception {
+        Double gains =  BalanceFactory.balance("calculate", this.investment, this.getCreate_date(), view_date);
+        System.out.println(gains);
+        this.amount =  new BigDecimal(this.investment + gains).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
 }
