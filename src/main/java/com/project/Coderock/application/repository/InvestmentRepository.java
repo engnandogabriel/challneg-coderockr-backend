@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface InvestmentRepository {
     void save(Investment investment);
     Optional<Investment> getById(String investment_id) throws Exception;
+    void update(Investment investment);
 }
