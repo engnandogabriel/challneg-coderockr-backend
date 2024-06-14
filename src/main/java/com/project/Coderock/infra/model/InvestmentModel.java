@@ -10,11 +10,11 @@ import jakarta.persistence.Table;
 public class InvestmentModel {
     @Id
     @Column(name = "investment_id")
-    private String investment_id;
+    private String investmentId;
     @Column(name = "owner_id")
-    private String owner_id;
+    private String ownerId;
     @Column(name = "create_date")
-    private String create_date;
+    private String createDate;
     @Column(name="investment")
     private Double investment;
     @Column(name = "amount")
@@ -24,9 +24,9 @@ public class InvestmentModel {
 
 
     public InvestmentModel(String investment_id, String owner_id, String create_date, Double investment, Double amount, String status) {
-        this.investment_id = investment_id;
-        this.owner_id = owner_id;
-        this.create_date = create_date;
+        this.investmentId = investment_id;
+        this.ownerId = owner_id;
+        this.createDate = create_date;
         this.investment = investment;
         this.amount = amount;
         this.status = status;
@@ -35,28 +35,28 @@ public class InvestmentModel {
     public InvestmentModel() {
     }
 
-    public String getInvestment_id() {
-        return investment_id;
+    public String getInvestmentId() {
+        return investmentId;
     }
 
-    public void setInvestment_id(String investment_id) {
-        this.investment_id = investment_id;
+    public void setInvestmentId(String investment_id) {
+        this.investmentId = investment_id;
     }
 
-    public String getOwner_id() {
-        return owner_id;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner_id(String owner_id) {
-        this.owner_id = owner_id;
+    public void setOwnerId(String owner_id) {
+        this.ownerId = owner_id;
     }
 
-    public String getCreate_date() {
-        return create_date;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setCreate_date(String create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(String create_date) {
+        this.createDate = create_date;
     }
 
     public Double getInvestment() {
