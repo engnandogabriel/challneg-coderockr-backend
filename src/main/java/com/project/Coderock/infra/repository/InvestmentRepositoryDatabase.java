@@ -25,8 +25,9 @@ public class InvestmentRepositoryDatabase implements InvestmentRepository {
     @Override
     public Optional<Investment> getById(String investment_id) throws Exception {
         InvestmentModel investmentModel = this.investmentJPA.findById(investment_id).orElse(null);
-        if (investment_id == null) return Optional.empty();
+        if (investmentModel == null) return Optional.empty();
         Investment investment = Investment.restore(investmentModel.getInvestment_id(), investmentModel.getOwner_id(), investmentModel.getCreate_date(), investmentModel.getInvestment(), investmentModel.getAmount(), investmentModel.getStatus());
         return Optional.of(investment);
     }
+
 }
