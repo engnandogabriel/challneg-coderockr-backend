@@ -30,4 +30,9 @@ public class InvestmentRepositoryDatabase implements InvestmentRepository {
         return Optional.of(investment);
     }
 
+    @Override
+    public void update(Investment investment) {
+        InvestmentModel investmentModel = new InvestmentModel(investment.getInvestment_id(), investment.getOwner_id(), investment.getCreate_date(), investment.getInvestment(), investment.getAmount(), investment.getStatus());
+        this.investmentJPA.save(investmentModel);
+    }
 }
