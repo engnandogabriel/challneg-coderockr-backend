@@ -5,45 +5,37 @@ import com.project.Coderock.domain.Exceptions.InvalidParamError;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CreateDate {
-    private String create_date;
+    private LocalDate create_date;
 
     public CreateDate() {
 
     }
 
-    private CreateDate(String create_date) {
-        this.create_date = create_date;
+    public CreateDate(String create_date) throws Exception {
+        this.create_date = this.validateDate(create_date);
     }
 
-    public static CreateDate validateDate(String create_date) throws Exception {
-        if (!create_date.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            throw new InvalidParamError("Date Format invalid. Use DD/MM/AAAA");
+    private LocalDate validateDate(String create_date) throws Exception {
+        if (!create_date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new InvalidParamError("Date Format invalid. Use YYYY-MM-DD");
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf.setLenient(false);
+        LocalDate dateNow = LocalDate.now();
+        LocalDate inputDate = LocalDate.parse(create_date);
 
-        Date inputDate;
-        try {
-            inputDate = sdf.parse(create_date);
-        } catch (ParseException e) {
-            throw new InvalidParamError("Invalid date");
-        }
-
-        if (inputDate.after(new Date())) {
+        if (inputDate.isAfter(dateNow)) {
             throw new InvalidParamError("Can not be a future date");
         }
 
-        return new CreateDate(create_date);
-    }
-    public static CreateDate restore(String create_date){
-        return new CreateDate(create_date);
+        return inputDate;
     }
 
-    public String getCreate_date() {
+
+    public LocalDate getCreate_date() {
         return create_date;
     }
 }
