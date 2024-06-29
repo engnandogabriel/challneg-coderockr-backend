@@ -4,23 +4,27 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 class CreateDateTest {
     @Test
     @DisplayName("Should be create a new Date")
     void create() throws Exception {
-        CreateDate createDate = CreateDate.validateDate("10/06/2024");
+        CreateDate createDate = new CreateDate("2024-06-29");
     }
 
     @Test
     @DisplayName("Should be throw a new Exception if a date is invalid")
     void invalidDate() throws Exception {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> CreateDate.validateDate("123/06/2024"));
-        Assertions.assertEquals("Date Format invalid. Use DD/MM/AAAA", exception.getMessage());
+        Exception exception = Assertions.assertThrows(Exception.class, () -> new CreateDate("20244-06-30"));
+        Assertions.assertEquals("InvalidParamError: Date Format invalid. Use YYYY-MM-DD", exception.getMessage());
     }
     @Test
     @DisplayName("Should be throw a new Exception if a future date")
     void fututeDate() throws Exception {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> CreateDate.validateDate("12/06/2024"));
-        Assertions.assertEquals("Can not be a future date", exception.getMessage());
+        LocalDate localDate = LocalDate.now().plusMonths(2);
+        System.out.println(localDate.toString());
+        Exception exception = Assertions.assertThrows(Exception.class, () -> new CreateDate(localDate.toString()));
+        Assertions.assertEquals("InvalidParamError: Can not be a future date", exception.getMessage());
     }
 }
