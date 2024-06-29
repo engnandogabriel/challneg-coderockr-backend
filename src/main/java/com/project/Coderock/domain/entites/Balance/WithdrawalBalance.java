@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 public class WithdrawalBalance extends Balance {
     @Override
-    public Double setBalance(Double amount, String create_date, String viewDate) throws Exception {
+    public Double setBalance(Double amount, LocalDate create_date, String viewDate) throws Exception {
         int months = this.getMonths(create_date, viewDate);
         Double gainsTotal = 0.0;
         Double gains = amount * this.getGains(create_date, viewDate);
@@ -23,18 +23,19 @@ public class WithdrawalBalance extends Balance {
     }
 
     @Override
-    public int getMonths(String create_date, String view_date) throws Exception {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate creationDate = LocalDate.parse(create_date, formatter);
-        String current_date = CreateDate.validateDate(view_date).getCreate_date();
-        LocalDate currentDate = LocalDate.parse(current_date, formatter);
-        if (currentDate.isBefore(creationDate)) {
+    public int getMonths(LocalDate create_date, String view_date) throws Exception {
+        if (!view_date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new InvalidParamError("Date Format invalid. Use YYYY-MM-DD");
+        }
+        LocalDate currentDate = LocalDate.parse(view_date);
+        if (currentDate.isBefore(create_date)) {
+            System.out.println("ola");
             throw new InvalidParamError("The withdrawal date cannot be less than the investment date");
         }
         if (currentDate.isAfter(LocalDate.now())) {
             throw new InvalidParamError ("The withdrawal date cannot be a future date");
         }
-        Period period = Period.between(creationDate, currentDate);
+        Period period = Period.between(create_date, currentDate);
         return period.getYears() * 12 + period.getMonths();
 
     }

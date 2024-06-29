@@ -8,18 +8,16 @@ import java.time.format.DateTimeFormatter;
 public class ViewBalance extends Balance {
 
     @Override
-    public Double setBalance(Double amount, String create_date, String viewDate) throws Exception{
+    public Double setBalance(Double amount, LocalDate create_date, String viewDate) throws Exception{
         Double gains = this.getGains(create_date, viewDate);
         double expectedBalance = amount * gains;
         return new BigDecimal(expectedBalance).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     @Override
-    public int getMonths(String create_date, String view_date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate creationDate = LocalDate.parse(create_date, formatter);
+    public int getMonths(LocalDate create_date, String view_date) {
         LocalDate currentDate = LocalDate.now();
-        Period period = Period.between(creationDate, currentDate);
+        Period period = Period.between(create_date, currentDate);
         return period.getYears() * 12 + period.getMonths();
     }
 }
