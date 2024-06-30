@@ -56,4 +56,13 @@ class WithdrawalBalanceTest {
         System.out.println(exception);
         Assert.assertEquals(exception.getMessage(), "InvalidParamError: The withdrawal date cannot be a future date");
     }
+
+    @Test
+    @DisplayName("Can not be calculated with a date of created equal a date of withdrawal")
+    void testWithdrawalEqualDate() throws Exception {
+        LocalDate createDate = LocalDate.parse("2024-01-01");
+        LocalDate withdrawalDate = LocalDate.parse("2024-01-01");
+        Exception exception = Assert.assertThrows(Exception.class, () -> new WithdrawalBalance().setBalance(1000D, createDate, withdrawalDate.toString()));
+        Assert.assertEquals(exception.getMessage(), "InvalidOperation: Invalid Period");
+    }
 }
