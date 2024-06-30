@@ -4,6 +4,7 @@ import com.project.Coderock.application.DAO.InvestmentDAO;
 import com.project.Coderock.domain.DTO.InvestmentOwnerPageDTO;
 import com.project.Coderock.infra.model.InvestmentJPA;
 import com.project.Coderock.infra.model.InvestmentModel;
+import com.project.Coderock.infra.model.OwnerModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,13 +28,13 @@ public class InvestmentDatabaseDAO implements InvestmentDAO {
     @Override
     public Page<InvestmentOwnerPageDTO> pagination(String owner_id, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-
-        Page<InvestmentModel> investmentModelsPage = investmentJPA.findByOwnerId(owner_id, pageable);
+        OwnerModel ownerModel = new OwnerModel(owner_id);
+        Page<InvestmentModel> investmentModelsPage = this.investmentJPA.findByOwnerId(ownerModel, pageable);
 
         List<InvestmentOwnerPageDTO> investmentOwnerPageDTOs = investmentModelsPage.getContent().stream()
                 .map(investment -> new InvestmentOwnerPageDTO(
                         investment.getInvestmentId(),
-                        investment.getOwnerId(),
+                        investment.getOwnerId().getOwner_id(),
                         investment.getCreateDate().toString(),
                         investment.getInvestment(),
                         investment.getAmount(),
