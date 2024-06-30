@@ -1,5 +1,6 @@
 package com.project.Coderock.domain.entites.Balance;
 
+import com.project.Coderock.domain.Exceptions.InvalidOperations;
 import com.project.Coderock.domain.Exceptions.InvalidParamError;
 import com.project.Coderock.domain.value_objects.CreateDate;
 
@@ -13,6 +14,7 @@ public class WithdrawalBalance extends Balance {
     @Override
     public Double setBalance(Double amount, LocalDate create_date, String viewDate) throws Exception {
         int months = this.getMonths(create_date, viewDate);
+        if(months < 1) throw new InvalidOperations("Invalid Period");
         Double gainsTotal = 0.0;
         Double gains = amount * this.getGains(create_date, viewDate);
         Double diff = gains - amount;
