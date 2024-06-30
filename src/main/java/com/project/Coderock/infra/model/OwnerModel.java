@@ -19,6 +19,10 @@ public class OwnerModel {
     public OwnerModel() {
     }
 
+    public OwnerModel(String owner_id) {
+        this.owner_id = owner_id;
+    }
+
     public OwnerModel(String owner_id, String name, String email) {
         this.owner_id = owner_id;
         this.name = name;

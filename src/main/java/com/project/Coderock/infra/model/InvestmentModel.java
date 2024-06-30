@@ -1,9 +1,8 @@
 package com.project.Coderock.infra.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "investments")
@@ -11,10 +10,11 @@ public class InvestmentModel {
     @Id
     @Column(name = "investment_id")
     private String investmentId;
-    @Column(name = "owner_id")
-    private String ownerId;
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "owner_id", nullable = false, foreignKey = @ForeignKey(name = "Investment_owner_id"))
+    private OwnerModel ownerId;
     @Column(name = "create_date")
-    private String createDate;
+    private LocalDate createDate;
     @Column(name="investment")
     private Double investment;
     @Column(name = "amount")
@@ -23,13 +23,17 @@ public class InvestmentModel {
     private String status;
 
 
-    public InvestmentModel(String investment_id, String owner_id, String create_date, Double investment, Double amount, String status) {
+    public InvestmentModel(String investment_id, OwnerModel owner_id, LocalDate create_date, Double investment, Double amount, String status) {
         this.investmentId = investment_id;
         this.ownerId = owner_id;
         this.createDate = create_date;
         this.investment = investment;
         this.amount = amount;
         this.status = status;
+    }
+
+    public InvestmentModel(OwnerModel ownerId) {
+        this.ownerId = ownerId;
     }
 
     public InvestmentModel() {
@@ -43,19 +47,19 @@ public class InvestmentModel {
         this.investmentId = investment_id;
     }
 
-    public String getOwnerId() {
+    public OwnerModel getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(String owner_id) {
+    public void setOwnerId(OwnerModel owner_id) {
         this.ownerId = owner_id;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String create_date) {
+    public void setCreateDate(LocalDate create_date) {
         this.createDate = create_date;
     }
 

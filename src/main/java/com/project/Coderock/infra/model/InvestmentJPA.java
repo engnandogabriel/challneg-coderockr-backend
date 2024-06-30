@@ -5,5 +5,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InvestmentJPA extends JpaRepository<InvestmentModel, String> {
-    Page<InvestmentModel> findByOwnerId(String ownerId, Pageable pageable);
+    Page<InvestmentModel> findByOwnerId(OwnerModel ownerId, Pageable pageable);
 }
