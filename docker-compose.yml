@@ -1,0 +1,28 @@
+services:
+  db-coderockr:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: coderockr
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-coderockr:/var/lib/postgresql/data
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    working_dir: /usr/src/main
+    depends_on:
+      - db-coderockr
+    container_name: coderockr-app
+    ports:
+      - "$SPRING_LOCAL_PORT:${SPRING_DOCKER_PORT}"
+    environment:
+#      - jdbc:postgresql://localhost:5432/coderockr
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-coderockr:$POSTGRE_DOCKER_PORT/$POSTGRE_DATABASE?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=$POSTGRE_USER
+      - SPRING_DATASOURCE_PASSWORD=$POSTGRE_PASSWORD
+volumes:
+  db-coderockr:
