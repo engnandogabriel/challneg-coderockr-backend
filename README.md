@@ -1,7 +1,7 @@
 # Coderockr Challenge
 
 ## Resolução do desafio backend da empresa Coderockr usando Java com SpringBoot.
-O [desafio resolvido](https://github.com/engnandogabriel/challneg-codereockr-backend) foi um sistema de armazenamento e gerenciamento de investimentos, 
+O [desafio resolvido](https://github.com/Coderockr/backend-test) foi um sistema de armazenamento e gerenciamento de investimentos, 
 no qual qual poderemos criar, visualizar com seu valor inicial e saldo esperado e retirar o investimento
 
 
